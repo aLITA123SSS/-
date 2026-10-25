@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b5d99">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="科研智审">
+  <title>科研项目智能审计 Web Demo</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div>
+          <div class="brand-title">科研项目智能审计系统</div>
+          <div class="brand-subtitle">RESEARCH PROJECT INTELLIGENT AUDIT</div>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="system-status"><i></i> 本地演示环境</div>
+        <div class="mock-badge">模拟数据</div>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <aside class="sidebar">
+        <div class="sidebar-label">演示流程</div>
+        <button class="nav-item is-active" data-view="overview">
+          <span class="nav-icon">◎</span>
+          <span>
+            <strong>审计总览</strong>
+            <small>三阶段风险闭环</small>
+          </span>
+        </button>
+        <button class="nav-item" data-view="stage1">
+          <span class="nav-index">01</span>
+          <span>
+            <strong>立项风险预审</strong>
+            <small>预算合理性核验</small>
+          </span>
+          <em class="nav-state" data-state-for="stage1">待演示</em>
+        </button>
+        <button class="nav-item" data-view="stage2">
+          <span class="nav-index">02</span>
+          <span>
+            <strong>执行动态监控</strong>
+            <small>票据与时空冲突</small>
+          </span>
+          <em class="nav-state" data-state-for="stage2">待演示</em>
+        </button>
+        <button class="nav-item" data-view="stage3">
+          <span class="nav-index">03</span>
+          <span>
+            <strong>结题合规终审</strong>
+            <small>热力图与成果印证</small>
+          </span>
+          <em class="nav-state" data-state-for="stage3">待演示</em>
+        </button>
+
+        <div class="sidebar-progress">
+          <div class="sidebar-progress-head">
+            <span>演示进度</span>
+            <b id="progressLabel">0 / 3</b>
+          </div>
+          <div class="progress-track"><span id="progressBar"></span></div>
+        </div>
+        <button class="reset-button" type="button" id="resetDemo">重置全部演示数据</button>
+
+        <div class="demo-note">
+          <b>演示提示</b>
+          本页面使用预置模拟数据。可修改条件后重新运行，观察预警与通过两种结果。
+        </div>
+      </aside>
+
+      <main class="main">
+        <section class="view is-active" id="view-overview">
+          <div class="overview-heading">
+            <div>
+              <div class="eyebrow">全周期智能审计 · 概念验证</div>
+              <h1>从立项到结题，风险在业务发生时被发现</h1>
+              <p>点击任一阶段，体验预算核验、支付前拦截和成果交叉印证。</p>
+            </div>
+            <div class="overview-badge">DEMO MODE</div>
+          </div>
+
+          <div class="overview-metrics">
+            <div class="overview-metric">
+              <span>审计阶段</span>
+              <strong>3</strong>
+              <small>立项 · 执行 · 结题</small>
+            </div>
+            <div class="overview-metric">
+              <span>风险识别方式</span>
+              <strong>4</strong>
+              <small>规则、OCR、时空与离群检测</small>
+            </div>
+            <div class="overview-metric">
+              <span>数据来源</span>
+              <strong>6</strong>
+              <small>财务 · 人力 · 科研 · 票据</small>
+            </div>
+          </div>
+
+          <div class="phase-grid">
+            <button class="phase-card phase-one" data-go="stage1">
+              <div class="phase-top">
+                <span class="phase-number">01</span>
+                <span class="phase-state" data-card-state="stage1">待演示</span>
+              </div>
+              <div class="phase-icon">⌁</div>
+              <h2>立项风险预审</h2>
+              <p>识别研究属性与预算结构，在项目启动前拦截显著偏离。</p>
+              <div class="phase-tags"><span>知识图谱</span><span>预算阈值</span></div>
+              <div class="phase-link">进入第一阶段 <span>→</span></div>
+            </button>
+
+            <button class="phase-card phase-two" data-go="stage2">
+              <div class="phase-top">
+                <span class="phase-number">02</span>
+                <span class="phase-state" data-card-state="stage2">待演示</span>
+              </div>
+              <div class="phase-icon">⌖</div>
+              <h2>执行动态监控</h2>
+              <p>OCR 识别票据并结合门禁轨迹，在支付前发现时空冲突。</p>
+              <div class="phase-tags"><span>OCR + RPA</span><span>RNN</span></div>
+              <div class="phase-link">进入第二阶段 <span>→</span></div>
+            </button>
+
+            <button class="phase-card phase-three" data-go="stage3">
+              <div class="phase-top">
+                <span class="phase-number">03</span>
+                <span class="phase-state" data-card-state="stage3">待演示</span>
+              </div>
+              <div class="phase-icon">◫</div>
+              <h2>结题合规终审</h2>
+              <p>形成支出热力图，交叉印证差旅轨迹与科研产出。</p>
+              <div class="phase-tags"><span>时空热力图</span><span>孤立森林</span></div>
+              <div class="phase-link">进入第三阶段 <span>→</span></div>
+            </button>
+          </div>
+
+          <div class="flow-band">
+            <div class="flow-step"><b>01</b><span>业务数据进入</span></div>
+            <div class="flow-line"></div>
+            <div class="flow-step"><b>02</b><span>多维规则与模型分析</span></div>
+            <div class="flow-line"></div>
+            <div class="flow-step"><b>03</b><span>证据链与风险预警</span></div>
+            <div class="flow-line"></div>
+            <div class="flow-step"><b>04</b><span>人工复核与闭环</span></div>
+          </div>
+
+          <div class="overview-footnote">演示数据仅用于展示业务流程与交互逻辑，不代表真实系统的识别准确率。</div>
+        </section>
+
+        <section class="view" id="view-stage1">
+          <div class="page-heading">
+            <div>
+              <div class="eyebrow">PHASE 01 · 立项阶段</div>
+              <h1>科研项目立项智能预审</h1>
+              <p>系统根据研究类型和预算结构匹配同类课题规则。</p>
+            </div>
+            <button class="ghost-button" data-go="overview">返回总览</button>
+          </div>
+
+          <div class="stage-grid stage-one-grid">
+            <form class="panel form-panel" id="formStage1">
+              <div class="panel-heading">
+                <div><h2>项目基本信息</h2><p>可修改数据后重新运行预审。</p></div>
+                <span class="tag tag-blue">AI 辅助填报</span>
+              </div>
+
+              <div class="field">
+                <label for="projectName">项目名称</label>
+                <input id="projectName" name="projectName" type="text" value="基于机器学习的宏观经济政策仿真研究">
+              </div>
+
+              <div class="two-fields">
+                <div class="field">
+                  <label for="researchType">研究类型</label>
+                  <select id="researchType" name="researchType">
+                    <option value="pure-theory" selected>纯理论数学研究</option>
+                    <option value="applied">应用基础研究</option>
+                    <option value="field">外场应用研究</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="travelBudget">差旅费预算</label>
+                  <div class="input-with-unit">
+                    <input id="travelBudget" name="travelBudget" type="number" min="0" step="0.1" value="12.5">
+                    <span>万元</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="preset-row">
+                <div>
+                  <span>当前样例</span>
+                  <b>纯理论研究 + 12.5 万元差旅预算</b>
+                </div>
+                <button type="button" class="text-button" data-preset="stage1-warning">恢复异常样例</button>
+              </div>
+
+              <div class="panel-actions">
+                <span class="privacy-note">测试数据仅在本机运行</span>
+                <button class="primary-button" type="submit" data-start-stage="stage1">启动智能预审</button>
+              </div>
+            </form>
+
+            <aside class="panel context-panel">
+              <div class="panel-heading">
+                <div><h2>预审规则视图</h2><p>当前关联的知识图谱与阈值。</p></div>
+                <span class="tag tag-green">规则库在线</span>
+              </div>
+
+              <div class="rule-list">
+                <div class="rule-row">
+                  <span class="rule-index">01</span>
+                  <div><b>研究属性识别</b><p>纯理论数学研究通常不配置外场实验任务。</p></div>
+                </div>
+                <div class="rule-row">
+                  <span class="rule-index">02</span>
+                  <div><b>同类课题穿透</b><p>匹配纯理论研究课题目录的历史预算中位值。</p></div>
+                </div>
+                <div class="rule-row">
+                  <span class="rule-index">03</span>
+                  <div><b>偏离阈值判断</b><p>差旅预算高于同类中位值 2 倍时进入重点复核。</p></div>
+                </div>
+              </div>
+
+              <div class="rule-stat">
+                <span>同类课题预算中位值</span>
+                <strong>5.0 <small>万元</small></strong>
+                <div class="rule-stat-track"><i style="width:72%"></i></div>
+                <p>修改右侧预算后，系统会重新计算偏离程度。</p>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="view" id="view-stage2">
+          <div class="page-heading">
+            <div>
+              <div class="eyebrow">PHASE 02 · 执行阶段</div>
+              <h1>差旅报销伴随式智能稽核</h1>
+              <p>票据、流水与人员轨迹在支付前完成交叉验证。</p>
+            </div>
+            <button class="ghost-button" data-go="overview">返回总览</button>
+          </div>
+
+          <div class="stage-grid execution-grid">
+            <form class="panel claim-panel" id="formStage2">
+              <div class="panel-heading">
+                <div><h2>差旅报销申请</h2><p>申请单号 TR-20261025-0817</p></div>
+                <span class="tag tag-amber">待稽核</span>
+              </div>
+
+              <div class="claim-summary">
+                <div><span>申请金额</span><strong>¥ 12,580.00</strong></div>
+                <div><span>出差区间</span><strong>10.20 — 10.22</strong></div>
+                <div><span>行程</span><strong>北京 → 西安</strong></div>
+              </div>
+
+              <div class="document-list">
+                <button type="button" class="document-row is-selected" data-doc="air">
+                  <span class="doc-icon">票</span>
+                  <span><b>航空运输电子客票</b><small>北京—西安 · ¥1,420.00</small></span>
+                  <em>已载入</em>
+                </button>
+                <button type="button" class="document-row" data-doc="hotel">
+                  <span class="doc-icon">票</span>
+                  <span><b>西安酒店增值税电子发票</b><small>10.20—10.22 · ¥2,680.00</small></span>
+                  <em>已载入</em>
+                </button>
+                <button type="button" class="document-row" data-doc="bank">
+                  <span class="doc-icon">流</span>
+                  <span><b>银行支付流水</b><small>交易时间 2026-10-20 22:18</small></span>
+                  <em>已载入</em>
+                </button>
+              </div>
+
+              <div class="toggle-row">
+                <div><b>模拟异常数据</b><small>开启后包含北京实验室门禁冲突记录</small></div>
+                <label class="switch">
+                  <input type="checkbox" id="stage2Anomaly" checked>
+                  <span></span>
+                </label>
+              </div>
+
+              <div class="panel-actions">
+                <span class="privacy-note">4 份凭证 · 5 个系统</span>
+                <button class="primary-button" type="submit" data-start-stage="stage2">启动智能稽核</button>
+              </div>
+            </form>
+
+            <aside class="panel monitor-preview">
+              <div class="panel-heading">
+                <div><h2>预审监控视图</h2><p>支付前多源数据联查。</p></div>
+                <span class="tag tag-green">监控在线</span>
+              </div>
+
+              <div class="monitor-stat-grid">
+                <div><span>票据识别</span><b>OCR</b><small>字段提取与检测</small></div>
+                <div><span>真实性核验</span><b>RPA</b><small>发票与资金流</small></div>
+                <div><span>时空一致性</span><b>RNN</b><small>多源时序对齐</small></div>
+              </div>
+
+              <div class="preview-timeline">
+                <div class="preview-line"></div>
+                <div class="preview-node"><i>1</i><b>出差审批</b><small>西安</small></div>
+                <div class="preview-node"><i>2</i><b>交通</b><small>10.20</small></div>
+                <div class="preview-node amber"><i>3</i><b>酒店</b><small>10.21</small></div>
+                <div class="preview-node red"><i>?</i><b>门禁</b><small>北京</small></div>
+              </div>
+
+              <div class="document-preview" id="documentPreview">
+                <div class="preview-label">当前查看：航空运输电子客票</div>
+                <div class="preview-fields">
+                  <span>出发地：北京</span>
+                  <span>目的地：西安</span>
+                  <span>金额：¥1,420.00</span>
+                  <span>状态：字段已提取</span>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="view" id="view-stage3">
+          <div class="page-heading">
+            <div>
+              <div class="eyebrow">PHASE 03 · 结题阶段</div>
+              <h1>科研成果与经费合规终审</h1>
+              <p>热力图、外场记录与科研产出进行全周期交叉印证。</p>
+            </div>
+            <button class="ghost-button" data-go="overview">返回总览</button>
+          </div>
+
+          <div class="stage-grid closing-grid">
+            <section class="panel closing-summary">
+              <div class="panel-heading">
+                <div><h2>项目结题申请</h2><p>结题申请号 CL-20261025-0042</p></div>
+                <span class="tag tag-amber">待终审</span>
+              </div>
+
+              <div class="closing-project">基于机器学习的宏观经济政策仿真研究</div>
+              <div class="closing-metrics">
+                <div><span>差旅记录</span><b id="closingTrips">34 笔</b></div>
+                <div><span>累计支出</span><b id="closingAmount">¥286,400</b></div>
+                <div><span>科研产出</span><b>4 篇论文 / 2 项专利</b></div>
+                <div><span>外场报告</span><b id="closingReports">0 份</b></div>
+              </div>
+
+              <div class="toggle-row">
+                <div><b>模拟结题前突击出差</b><small>开启后最后一个月出现 8 次密集外地差旅</small></div>
+                <label class="switch">
+                  <input type="checkbox" id="stage3Anomaly" checked>
+                  <span></span>
+                </label>
+              </div>
+
+              <div class="panel-actions">
+                <button class="primary-button" type="button" id="startStage3">启动结题智能终审</button>
+              </div>
+            </section>
+
+            <section class="panel heatmap-panel">
+              <div class="panel-heading">
+                <div><h2>经费支出时空热力图</h2><p>城市 × 月份 · 预置演示数据</p></div>
+                <span class="tag tag-blue">Mock Data</span>
+              </div>
+              <div class="heatmap-scroll"><div class="heatmap" id="overviewHeatmap"></div></div>
+              <div class="heatmap-legend"><span>低频</span><i></i><span>高频</span></div>
+              <div class="output-cross">
+                <div><span>论文与专利</span><b>已关联</b></div>
+                <div><span>外场试验报告</span><b id="fieldReportState">未发现</b></div>
+                <div><span>技术转化成果</span><b id="conversionState">关联度低</b></div>
+              </div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="overlay processing-overlay" id="processingOverlay" aria-hidden="true">
+    <section class="processing-card">
+      <div class="processing-kicker">INTELLIGENT AUDIT ENGINE</div>
+      <h2 id="processingTitle">智能审计分析中...</h2>
+      <p id="processingSubtitle">正在完成多源数据联查与规则匹配</p>
+      <div class="processing-visual" id="processingVisual"></div>
+      <div class="processing-steps" id="processingSteps"></div>
+    </section>
+  </div>
+
+  <div class="overlay result-overlay" id="resultOverlay" aria-hidden="true">
+    <section class="result-card is-warning" id="resultCard" role="dialog" aria-modal="true">
+      <div class="result-accent"></div>
+      <div class="result-head">
+        <div class="result-icon" id="resultIcon">!</div>
+        <div>
+          <div class="result-kicker" id="resultKicker">智能审计风险预警</div>
+          <h2 id="resultTitle">发现异常事项</h2>
+          <p id="resultSubtitle">系统已完成证据链归集</p>
+        </div>
+      </div>
+      <div class="result-body">
+        <div class="result-copy" id="resultCopy"></div>
+        <div class="result-metrics" id="resultMetrics"></div>
+        <div class="result-evidence" id="resultEvidence"></div>
+      </div>
+      <div class="result-actions">
+        <button type="button" class="secondary-button" id="evidenceButton">查看证据链</button>
+        <button type="button" class="primary-button compact" id="resultClose">关闭结果</button>
+        <button type="button" class="next-button" id="resultNext">进入下一阶段 →</button>
+      </div>
+    </section>
+  </div>
+
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="evidence-drawer" id="evidenceDrawer" aria-hidden="true">
+    <div class="drawer-head">
+      <div>
+        <span>审计留痕</span>
+        <h2>证据链与判断依据</h2>
+      </div>
+      <button type="button" id="drawerClose" aria-label="关闭">×</button>
+    </div>
+    <div class="drawer-content" id="drawerContent"></div>
+    <div class="drawer-footer">模拟数据 · 仅用于展示审计判断过程</div>
+  </aside>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
